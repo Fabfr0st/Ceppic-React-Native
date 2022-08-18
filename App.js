@@ -29,6 +29,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 1,
     margin: 5,
+    maxWidth: "50%",
   },
   inputContainer: {
     flexDirection: "row",
