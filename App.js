@@ -15,6 +15,7 @@ export default function App() {
   function ajoutLienHandler() {
     if (lienTexteSaisie.length > 0) {
       setListeLiens([...listeLiens, lienTexteSaisie]);
+      setLienTexteSaisie("");
     }
   }
 
@@ -27,6 +28,7 @@ export default function App() {
       <View style={styles.inputContainer}>
         <TextInput
           placeholder="Nouveau lien..."
+          value={lienTexteSaisie}
           style={styles.inputLien}
           onChangeText={lienInputHandler}
         />
