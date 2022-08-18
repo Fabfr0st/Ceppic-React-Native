@@ -6,6 +6,7 @@ import {
   TextInput,
   View,
   FlatList,
+  Image,
 } from "react-native";
 
 export default function App() {
@@ -34,15 +35,23 @@ export default function App() {
         />
         <Button title="Ajouter un lien" onPress={ajoutLienHandler} />
       </View>
+
       <View style={styles.lienContainer}>
         <Text style={styles.h1}>Liste des liens:</Text>
         <FlatList
           style={styles.liste}
           data={listeLiens}
-          renderItem={({ item }) => <Text>• {item}</Text>}
-        ></FlatList>
+          renderItem={({ item }) => (
+            <Text>
+              <Image
+                source={require("./images/link.png")}
+                style={{ width: 15, height: 15 }}
+              />
+              {item}
+            </Text>
+          )}
+        />
       </View>
-      <View style={styles.rienContainer}></View>
     </View>
   );
 }
@@ -71,6 +80,8 @@ const styles = StyleSheet.create({
     padding: 4,
     backgroundColor: "#BAABEE",
     margin: 50,
+    minHeight: "8%",
+    maxHeight: 80,
   },
   lienContainer: {
     flex: 8,
@@ -78,9 +89,7 @@ const styles = StyleSheet.create({
     padding: 4,
     width: "70%",
     alignItems: "center",
-  },
-  rienContainer: {
-    flex: 2,
+    margin: 15,
   },
   h1: {
     fontWeight: "bold",
