@@ -1,44 +1,27 @@
 import { useState } from "react";
 import {
-  Button,
   StyleSheet,
   Text,
-  TextInput,
   View,
   FlatList,
   Image,
 } from "react-native";
 import LienItem from "./components/LienItem";
+import LienInput from "./components/LienInput";
 
 export default function App() {
-  const [lienTexteSaisie, setLienTexteSaisie] = useState("");
   const [listeLiens, setListeLiens] = useState([]);
 
-  function ajoutLienHandler() {
-    if (lienTexteSaisie.length > 0) {
-      setListeLiens((currentListeLiens) => [
-        ...listeLiens,
-        { id: Math.random().toString(), text: lienTexteSaisie },
-      ]);
-      setLienTexteSaisie("");
-    }
-  }
-
-  function lienInputHandler(texteSaisie) {
-    setLienTexteSaisie(texteSaisie);
+  const addListeLiens = (lienTexte) => {
+    setListeLiens((currentListeLiens) => [
+      ...listeLiens,
+      { id: Math.random().toString(), text: lienTexte },
+    ]);
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TextInput
-          placeholder="Nouveau lien..."
-          value={lienTexteSaisie}
-          style={styles.inputLien}
-          onChangeText={lienInputHandler}
-        />
-        <Button title="Ajouter un lien" onPress={ajoutLienHandler} />
-      </View>
+      <LienInput liste={listeLiens} setListe={addListeLiens} />
       <Image
         source={require("./images/link.png")}
         style={{ width: 15, height: 15 }}
@@ -69,23 +52,6 @@ const styles = StyleSheet.create({
   },
   styleTexte: {
     color: "red",
-  },
-  inputLien: {
-    borderColor: "limegreen",
-    borderWidth: 1,
-    padding: 1,
-    margin: 5,
-    maxWidth: "50%",
-  },
-  inputContainer: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 4,
-    backgroundColor: "#BAABEE",
-    margin: 50,
-    minHeight: "8%",
-    maxHeight: 80,
   },
   lienContainer: {
     flex: 8,
