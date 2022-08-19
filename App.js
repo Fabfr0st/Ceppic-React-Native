@@ -1,11 +1,5 @@
 import { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  Image,
-} from "react-native";
+import { StyleSheet, Text, View, FlatList, Image } from "react-native";
 import LienItem from "./components/LienItem";
 import LienInput from "./components/LienInput";
 
@@ -17,6 +11,12 @@ export default function App() {
       ...listeLiens,
       { id: Math.random().toString(), text: lienTexte },
     ]);
+  };
+
+  function supprimerLienHandler(id) {
+    setListeLiens((currentListeLiens) => {
+      return currentListeLiens.filter((lien) => lien.id !== id);
+    });
   }
 
   return (
@@ -31,11 +31,17 @@ export default function App() {
         <FlatList
           style={styles.liste}
           data={listeLiens}
-          renderItem={(itemData) => {
-            return <LienItem lienText={itemData.item.text} />;
-          }}
           keyExtractor={(item, index) => {
-            item.id;
+            return item.id;
+          }}
+          renderItem={(itemData) => {
+            return (
+              <LienItem
+                lienText={itemData.item.text}
+                id={itemData.item.id}
+                onSupprimerItem={supprimerLienHandler}
+              />
+            );
           }}
         />
       </View>
