@@ -8,6 +8,7 @@ import {
   FlatList,
   Image,
 } from "react-native";
+import LienItem from "./components/LienItem";
 
 export default function App() {
   const [lienTexteSaisie, setLienTexteSaisie] = useState("");
@@ -15,7 +16,10 @@ export default function App() {
 
   function ajoutLienHandler() {
     if (lienTexteSaisie.length > 0) {
-      setListeLiens([...listeLiens, lienTexteSaisie]);
+      setListeLiens((currentListeLiens) => [
+        ...listeLiens,
+        { id: Math.random().toString(), text: lienTexteSaisie },
+      ]);
       setLienTexteSaisie("");
     }
   }
@@ -35,21 +39,21 @@ export default function App() {
         />
         <Button title="Ajouter un lien" onPress={ajoutLienHandler} />
       </View>
-
+      <Image
+        source={require("./images/link.png")}
+        style={{ width: 15, height: 15 }}
+      />
       <View style={styles.lienContainer}>
         <Text style={styles.h1}>Liste des liens:</Text>
         <FlatList
           style={styles.liste}
           data={listeLiens}
-          renderItem={({ item }) => (
-            <Text>
-              <Image
-                source={require("./images/link.png")}
-                style={{ width: 15, height: 15 }}
-              />
-              {item}
-            </Text>
-          )}
+          renderItem={(itemData) => {
+            return <LienItem lienText={itemData.item.text} />;
+          }}
+          keyExtractor={(item, index) => {
+            item.id;
+          }}
         />
       </View>
     </View>
