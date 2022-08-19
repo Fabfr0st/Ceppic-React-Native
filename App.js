@@ -21,7 +21,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <LienInput liste={listeLiens} setListe={addListeLiens} />
+      <LienInput setListe={addListeLiens} />
       <Image
         source={require("./images/link.png")}
         style={{ width: 15, height: 15 }}
